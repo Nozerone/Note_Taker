@@ -14,23 +14,21 @@ app.use(express.json());
 
 //-----------------------------------------------------------//
 
-//HTML Routes ???
+//HTML Routes
 
 app.get("/notes", (req, res) =>
-  res.sendFile(path.join(__dirname, "/public/notes.html"))
+  res.sendFile(path.join(__dirname, "./public/notes.html"))
 );
 app.get("/", (req, res) =>
-  res.sendFile(path.join(__dirname, "/public/index.html"))
+  res.sendFile(path.join(__dirname, "./public/index.html"))
 );
-
-// app.get("/", (req, res) => res.json(noteData));
 
 //-----------------------------------------------------------//
 
 // API Get requests
 app.get("/api/notes", (req, res) => {
   console.info(`${req.method} request received`);
-  res.json(noteData);
+  res.json(noteData).catch((err) => res.status(500).json(err));
 });
 
 // API Post request
@@ -51,5 +49,15 @@ app.listen(PORT, () =>
 app.post("api/reviews", (req, res) => {
   const newReview = req.body;
   writeToFile(destination, newReview);
-  res.json(`${req.method} received`);
+  res.json(`${req.method} received`).catch(err => res.status(500).json(err));
 });
+
+
+//test
+// DELETE "/api/notes" deletes the note with an id equal to req.params.id
+// router.delete("/notes/:id", function(req, res) {
+//   store
+//     .removeNote(req.params.id)
+//     .then(() => res.json({ ok: true }))
+//     .catch(err => res.status(500).json(err));
+// });
