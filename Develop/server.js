@@ -1,45 +1,46 @@
 const fs = require("fs");
 const express = require("express");
-
+const path = require("path");
 const app = express();
 
-//Note 
-const noteData = require("./db.json");
+//Note
+const noteData = require("./db/db.json");
 
 const PORT = 3001;
 
 // Static middleware pointing to the public folder
 app.use(express.static("public"));
+app.use(express.json());
 
 //-----------------------------------------------------------//
 
 //HTML Routes ???
-app.get('/', (req,res) => res.send('Visit http://localhost:3001/api'));
 
-app.get("/api", (req, res) => res.json(noteData));
+app.get("/notes", (req, res) =>
+  res.sendFile(path.join(__dirname, "/public/notes.html"))
+);
+app.get("/", (req, res) =>
+  res.sendFile(path.join(__dirname, "/public/index.html"))
+);
 
-
-
-
-
+// app.get("/", (req, res) => res.json(noteData));
 
 //-----------------------------------------------------------//
 
 // API Get requests
-app.get('api/notes', (req, res) => {
-    res.json(`${req.method} request received`);
-    console.info(`${req.methid} request received`);
-
+app.get("/api/notes", (req, res) => {
+  console.info(`${req.method} request received`);
+  res.json(noteData);
 });
 
 // API Post request
-app.post('/api/notes', (req, res) => {
-    res.json(`${req.method} request received to add a note`);
-    console.info(`${req.method} request received to add a note`);
-}); 
-
-
-
+app.post("/api/notes", ({ body }, res) => {
+  console.log(body);
+  noteData.push(body);
+  console.log(noteData);
+  fs.writeFileSync("./db/db.json", JSON.stringify(noteData));
+  res.json(noteData);
+});
 
 // listen() method is responsible for listening for incoming connections on the specified port
 app.listen(PORT, () =>
