@@ -28,7 +28,7 @@ app.get("/", (req, res) =>
 // API Get requests
 app.get("/api/notes", (req, res) => {
   console.info(`${req.method} request received`);
-  res.json(noteData).catch((err) => res.status(500).json(err));
+  res.json(noteData);
 });
 
 // API Post request
@@ -45,15 +45,14 @@ app.listen(PORT, () =>
   console.log(`Example app listening at http://localhost:${PORT}`)
 );
 
-//Example code for POST route (change reviews for Post or Notes)
+// Example code for POST route (change reviews for Post or Notes)
 app.post("api/reviews", (req, res) => {
   const newReview = req.body;
   writeToFile(destination, newReview);
-  res.json(`${req.method} received`).catch(err => res.status(500).json(err));
+  res.json(`${req.method} received`)
 });
 
-
-//test
+// test
 // DELETE "/api/notes" deletes the note with an id equal to req.params.id
 // router.delete("/notes/:id", function(req, res) {
 //   store
