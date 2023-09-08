@@ -7,7 +7,7 @@ const app = express();
 //Note
 const noteData = require("./db/db.json");
 
-const PORT = 3001;
+const PORT = process.env.PORT || 3001;
 
 // Static middleware pointing to the public folder
 app.use(express.static("public"));
