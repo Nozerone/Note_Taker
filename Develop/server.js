@@ -3,6 +3,7 @@ const express = require("express");
 const path = require("path");
 const app = express();
 
+
 //Note
 const noteData = require("./db/db.json");
 
@@ -52,11 +53,3 @@ app.post("api/reviews", (req, res) => {
   res.json(`${req.method} received`)
 });
 
-// test
-// DELETE "/api/notes" deletes the note with an id equal to req.params.id
-// router.delete("/notes/:id", function(req, res) {
-//   store
-//     .removeNote(req.params.id)
-//     .then(() => res.json({ ok: true }))
-//     .catch(err => res.status(500).json(err));
-// });
