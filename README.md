@@ -34,4 +34,4 @@
    N/A
 
    ### App Screenshots
-    ![Alt text](<Develop/public/assets/screenshots/Screenshot 2023-09-08 at 2.03.49 PM.png>)
+![Alt text](<public/assets/screenshots/Screenshot 2023-09-08 at 2.03.49 PM.png>)
